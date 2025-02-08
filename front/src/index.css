@@ -13,19 +13,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root{
+    width: 100%;  
+    max-width: initial;
+    padding: 0px;
+    /* display: flex;
+    flex-wrap: wrap; */
+}
+
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #005ec1;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #005ec1;
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -47,7 +55,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #005ec1;
 }
 button:focus,
 button:focus-visible {
