@@ -12,7 +12,7 @@ const Layout = () => {
         <SideMenu />
         <div className="flex flex-col pb-0 w-full h-min">
           <Breadcrumb />
-          <div className="bg-white flex text-gray-900 relative mt-12 w-full">
+          <div className="bg-white flex text-gray-900 relative mt-2 w-full">
             <Outlet /> {/* Exibe o conteúdo das rotas */}
           </div>
         </div>

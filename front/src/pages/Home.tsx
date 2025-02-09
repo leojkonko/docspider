@@ -49,7 +49,7 @@ const Home = () => {
             Nossa plataforma facilita o upload, organização e gerenciamento de
             documentos de maneira intuitiva.
           </p>
-          <Link to="/documents">
+          <Link to="/documents-list">
             <button className="mt-6 px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-lg hover:bg-gray-200">
               Comece Agora
             </button>
