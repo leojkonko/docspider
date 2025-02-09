@@ -5,14 +5,17 @@ import { Link } from "react-router-dom";
 export default function UploadDocument() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState(null);
-  const [message, setMessage] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setMessage(null);
+    setError(null);
 
     if (!file) {
-      setMessage("Selecione um arquivo.");
+      setError("Selecione um arquivo.");
       return;
     }
 
@@ -20,26 +23,43 @@ export default function UploadDocument() {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("file", file);
-    console.log(formData);
+
     try {
-      const response = await axios.post(
-        "http://localhost:3333/api/documents",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      await axios.post("http://localhost:3333/api/documents", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       setMessage("Documento enviado com sucesso!");
-    } catch (error) {
-      console.log("error", error);
-      setMessage("Erro ao enviar documento.");
+    } catch (err: any) {
+      console.error("Erro ao enviar documento:", err);
+
+      if (err.response?.data?.error) {
+        // const errorData = err.response.data.error.title;
+        const errorData =
+          err.response.data.error.title ||
+          err.response.data.error.description._errors;
+
+        const errorMessage =
+          typeof errorData === "string"
+            ? errorData
+            : Object.values(errorData).flat().join(" ");
+
+        setError(errorMessage);
+      } else {
+        setError("Erro desconhecido. Tente novamente.");
+      }
     }
   };
 
   return (
     <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-lg mt-10">
       <h2 className="text-2xl font-bold mb-4">Upload de Documento</h2>
+
+      {/* Exibe mensagem de erro em vermelho */}
+      {error && <p className="text-red-600 text-center">{error}</p>}
+
+      {/* Exibe mensagem de sucesso em verde */}
+      {message && <p className="text-green-600 text-center">{message}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -68,30 +88,25 @@ export default function UploadDocument() {
           <input
             type="file"
             className="border w-full p-2"
-            onChange={(e) => setFile(e.target.files[0])}
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
             required
           />
         </div>
 
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
         >
           Enviar
         </button>
       </form>
 
-      {message && (
-        <>
-          <p className="mt-4 text-center text-lg font-semibold">{message}</p>
-          <Link
-            to={"/documents-list"}
-            className="mx-auto text-blue-700 flex w-full justify-center"
-          >
-            Voltar para listagem
-          </Link>
-        </>
-      )}
+      <Link
+        to="/documents-list"
+        className="mt-4 text-blue-700 flex w-full justify-center"
+      >
+        Voltar para listagem
+      </Link>
     </div>
   );
 }
