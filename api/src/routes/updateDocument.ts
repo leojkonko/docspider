@@ -25,13 +25,11 @@ export async function updateDocument(app: FastifyInstance) {
       const { title, description, filename, fileUrl } = request.body;
 
       try {
-        // Verifica se o documento existe
         const existingDocument = await prisma.document.findUnique({ where: { id } });
         if (!existingDocument) {
           return reply.status(404).send({ error: "Document not found" });
         }
 
-        // Atualiza somente os campos enviados
         const updatedDocument = await prisma.document.update({
           where: { id },
           data: {

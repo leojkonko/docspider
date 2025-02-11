@@ -8,6 +8,7 @@ import cors from "@fastify/cors";
 import { getDocuments } from "./routes/getDocuments";
 import { updateDocument } from "./routes/updateDocument";
 import { deleteDocument } from "./routes/deleteDocument";
+import { getDocumentById } from "./routes/getDocument";
 
 const app = fastify();
 
@@ -20,6 +21,7 @@ app.setSerializerCompiler(serializerCompiler);
 
 app.register(createDocument);
 app.register(getDocuments);
+app.register(getDocumentById);
 app.register(updateDocument);
 app.register(deleteDocument);
 

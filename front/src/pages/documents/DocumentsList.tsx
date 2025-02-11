@@ -3,12 +3,15 @@ import DocumentService from "../../api/services/documentService";
 import { Document } from "../../api/models/documentModels";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import { MdModeEdit } from "react-icons/md";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function DocumentList() {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const limit = 5;
+  const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
     async function fetchDocuments() {
@@ -23,6 +26,21 @@ export default function DocumentList() {
 
     fetchDocuments();
   }, [page]);
+
+  async function handleDelete(docId: string) {
+    try {
+      await DocumentService.deleteDocument(docId);
+      setDocuments((prevDocuments) =>
+        prevDocuments.filter((doc) => doc.id !== docId)
+      );
+      setMessage("Documento excluído com sucesso!");
+      setTimeout(() => setMessage(""), 3000);
+    } catch (error) {
+      console.error("Erro ao excluir documento:", error);
+      setMessage("Erro ao excluir documento.");
+      setTimeout(() => setMessage(""), 3000);
+    }
+  }
 
   return (
     <div className=" w-full p-5">
@@ -48,6 +66,14 @@ export default function DocumentList() {
                 key={doc.id}
                 className="border border-gray-300 p-4 rounded-lg shadow-md h-full"
               >
+                <div className="flex justify-end gap-3">
+                  <Link to={`/edit-document/${doc.id}`}>
+                    <MdModeEdit />
+                  </Link>
+                  <button onClick={() => handleDelete(doc.id)}>
+                    <FaRegTrashAlt />
+                  </button>
+                </div>
                 <h2 className="text-lg font-semibold">{doc.title}</h2>
                 <p className="text-gray-600 mt-1">{doc.description}</p>
                 <p className="text-gray-600 mt-2 text-sm">

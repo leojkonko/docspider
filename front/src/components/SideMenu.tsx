@@ -10,13 +10,15 @@ const SideMenu = () => {
   return (
     <aside
       className={`${
-        isMenuOpen ? "w-full absolute lg:relative lg:w-72" : "w-20"
-      } bg-white text-gray-900 shadow border-2 h-full transition-width duration-300`}
+        isMenuOpen
+          ? "w-full bg-white lg:w-[20.5rem] xl:w-[19rem] 2xl:w-72 z-10"
+          : "w-20 lg:left-0 left-[-5rem]"
+      } bg-white text-gray-900 shadow border-2 h-full transition-width duration-300 absolute lg:relative`}
     >
       <ul
         className={`${
-          isMenuOpen ? "w-60" : "w-[3.5rem]"
-        } list-none fixed transition-width duration-300 bg-white z-10`}
+          isMenuOpen ? "lg:w-64 w-full " : "w-[4.5rem]"
+        } list-none fixed transition-width duration-300 bg-white z-10 h-full`}
       >
         <li className="shadow">
           <Link
