@@ -15,10 +15,6 @@ const AppRouter: React.FC = () => {
           <Route path="documents-list" element={<DocumentsList />} />
           <Route path="document-create" element={<DocumentsCreate />} />
           <Route path="/edit-document/:id" element={<DocumentEdit />} />
-          {/* Criação de documentos */}
-          {/* Documentos */}
-          {/* <Route path="about" element={<About />} /> */}{" "}
-          {/* Para adicionar futuramente */}
         </Route>
       </Routes>
     </Router>

@@ -1,44 +1,8 @@
-// src/components/Layout.tsx
 import { Link, Outlet } from "react-router-dom";
-import Header from "../components/Header";
-import SideMenu from "../components/SideMenu";
-import Breadcrumb from "../components/Breadcrumb";
 
 const Home = () => {
   return (
     <>
-      {/* <section className="">
-        <div className="bg-gray-100 p-10 text-center">
-          <h2 className="text-3xl font-bold mb-5">
-            Por que escolher o DocuManage?
-          </h2>
-          <p className="text-lg mb-5">
-            O DocuManage é a solução definitiva para gerenciar todos os seus
-            documentos online. Com uma interface intuitiva e ferramentas
-            poderosas, você pode organizar, compartilhar e acessar seus
-            documentos de qualquer lugar.
-          </p>
-          <p className="text-lg mb-5">
-            Nossa plataforma é segura, rápida e fácil de usar. Experimente agora
-            e veja como o DocuManage pode transformar a maneira como você lida
-            com documentos.
-          </p>
-        </div>
-        <div className="bg-white p-10 text-center">
-          <h2 className="text-3xl font-bold mb-5">Tecnologias Utilizadas</h2>
-          <ul className="list-disc list-inside text-lg">
-            <li>React</li>
-            <li>Next</li>
-            <li>TypeScript</li>
-            <li>Tailwind CSS</li>
-            <li>Zustand</li>
-            <li>Node.js</li>
-            <li>Express</li>
-            <li>Prisma</li>
-            <li>SQLite</li>
-          </ul>
-        </div>
-      </section> */}
       <div className="min-h-screen bg-gray-50 flex flex-col w-full">
         {/* Hero Section */}
         <header className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20 text-center">
@@ -85,7 +49,11 @@ const Home = () => {
         <section className="bg-white py-16 px-6 text-center">
           <h2 className="text-3xl font-semibold mb-6">Veja como funciona</h2>
           <div className="flex justify-center">
-            <video className="rounded-lg shadow-lg w-3/4 max-w-2xl" controls>
+            <video
+              className="rounded-lg shadow-lg w-3/4 max-w-2xl"
+              controls
+              data-testid="demo-video"
+            >
               <source
                 src="https://www.w3schools.com/html/mov_bbb.mp4"
                 type="video/mp4"
